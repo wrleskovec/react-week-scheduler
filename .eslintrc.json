@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "new-cap": 0,
+    "class-methods-use-this": 0,
+    "comma-dangle": 0,
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": "webpack"
+  }
+}
