@@ -2,7 +2,7 @@
   "name": "react-week-scheduler",
   "version": "1.0.0",
   "description": "simple graphical weekly scheduler component with drag/expand functionality",
-  "main": "./src/index.js",
+  "main": "./src/WeeklyScheduler.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --debug",

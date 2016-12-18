@@ -29,7 +29,7 @@ class WeeklyScheduler extends React.Component {
   // }
 
   componentWillMount() {
-    this.handleDragOver = _.debounce(this.handleDragOver, 50);
+    this.handleDragOver = _.debounce(this.handleDragOver, 20);
   }
   setupTimeRows() {
     const { days } = this.state;
@@ -59,8 +59,8 @@ class WeeklyScheduler extends React.Component {
     };
   }
   handleDragStart(dayNum, rowNum) {
-    const hour = (rowNum === 0) ? 0 : Math.floor(rowNum / 4);
-    const minutes = (rowNum % 4) * 15;
+    // const hour = (rowNum === 0) ? 0 : Math.floor(rowNum / 4);
+    // const minutes = (rowNum % 4) * 15;
     this.setState({ startingCell: {
       day: dayNum,
       time: rowNum
@@ -68,24 +68,32 @@ class WeeklyScheduler extends React.Component {
   }
   handleDragOver(dayNum, rowNum) {
     const { startingCell, days, currentEvent } = this.state;
-    const dayRange = (dayNum < startingCell.day) ? 0 : dayNum - startingCell.day;
-    const timeRange = (rowNum < startingCell.time) ? 0 : rowNum - startingCell.time;
+
+    const dayDiff = dayNum - startingCell.day;
+    const timeDiff = rowNum - startingCell.time;
     const newDays = [];
+
     for (let j = 0; j < 7; j += 1) {
       newDays.push(days[j].slice());
     }
-    if (dayRange !== 0) {
-      for (let j = startingCell.day; j <= dayNum; j += 1) {
-        if (timeRange !== 0) {
-          for (let i = startingCell.time; i <= rowNum; i += 1) {
+    if (dayDiff !== 0) {
+      const dayStart = (startingCell.day < dayNum) ? startingCell.day : dayNum;
+      const dayEnd = (startingCell.day < dayNum) ? dayNum : startingCell.day;
+      const timeStart = (startingCell.time < rowNum) ? startingCell.time : rowNum;
+      const timeEnd = (startingCell.time < rowNum) ? rowNum : startingCell.time;
+      for (let j = dayStart; j <= dayEnd; j += 1) {
+        if (timeDiff !== 0) {
+          for (let i = timeStart; i <= timeEnd; i += 1) {
             newDays[j][i] = this.stripeShade(i, currentEvent);
           }
         } else {
           newDays[j][startingCell.time] = this.stripeShade(startingCell.time, currentEvent);
         }
       }
-    } else if (timeRange !== 0) {
-      for (let j = startingCell.time; j <= rowNum; j += 1) {
+    } else if (timeDiff !== 0) {
+      const timeStart = (startingCell.time < rowNum) ? startingCell.time : rowNum;
+      const timeEnd = (startingCell.time < rowNum) ? rowNum : startingCell.time;
+      for (let j = timeStart; j <= timeEnd; j += 1) {
         newDays[startingCell.day][j] = this.stripeShade(j, currentEvent);
       }
     }
