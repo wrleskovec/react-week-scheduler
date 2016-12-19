@@ -23,6 +23,7 @@ class WeeklyScheduler extends React.Component {
     };
     this.handleDragStart = this.handleDragStart.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
+    this.handleSelectEvent = this.handleSelectEvent.bind(this);
   }
 
   // onMouseDown(e) {
@@ -48,6 +49,12 @@ class WeeklyScheduler extends React.Component {
         handleDragOver={this.handleDragOver}
       />
     ));
+  }
+  handleSelectEvent(eventSelected) {
+    const { currentEvent } = this.state;
+    if (eventSelected.event !== currentEvent.event) {
+      this.setState({ currentEvent: eventSelected });
+    }
   }
   handleDragStart(dayNum, rowNum) {
     // const hour = (rowNum === 0) ? 0 : Math.floor(rowNum / 4);
@@ -97,7 +104,9 @@ class WeeklyScheduler extends React.Component {
     console.log(this.state.days[0]);
     return (
       <div id="WeeklySchedulerTable">
-        <EventSelector events={events} selectedEvent={currentEvent} />
+        <EventSelector
+          events={events} selectedEvent={currentEvent} selectEvent={this.handleSelectEvent}
+        />
         <table onMouseDown={this.onMouseDown}>
           <DayHeader />
           <tbody>

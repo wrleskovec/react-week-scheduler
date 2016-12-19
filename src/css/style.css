@@ -1,10 +1,10 @@
 table {
   font-family: sans-serif;
-  width: 75%;
+  width: 100%;
   border-spacing: 0;
   border-collapse: separate;
   table-layout: fixed;
-  margin-bottom: 50px;
+  margin: auto;
 }
 table thead tr th {
   background: #626e7e;
@@ -111,6 +111,37 @@ table tbody tr td.hour span {
     -moz-transform: translateY(16px) rotate(270deg);
   }
 }
+#WeeklySchedulerTable {
+  width: 75%;
+  font-family: sans-serif;
+}
 #EventSelector {
+  width: 100%;
+  margin: 0px auto 10px auto;
+  padding: 0px 0px 10px 0px;
+  border: 1px solid #626e7e;
+  border-radius: 0.5em;
+  background: #626e7e;
+  color: #d1d5db;
+}
+#EventSelector legend {
+  background: #626e7e;
+  color: #d1d5db;
+  padding: 0.25em 1em;
+  border-radius: 1em;
+  border: 1px solid #000;
+}
+#EventSelector div.legend-body {
   text-align: center;
+  vertical-align: middle;
+}
+#EventSelector div .radio-item {
+  display: inline-block;
+  margin-left: 10px;
+}
+#EventSelector div .legend-color {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
 }
