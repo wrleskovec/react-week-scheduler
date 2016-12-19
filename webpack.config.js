@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    PopupApp: './src/index.jsx',
+    PopupApp: './src/test.jsx',
   },
   output: {
     path: './',
