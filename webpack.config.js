@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    PopupApp: './src/test.jsx',
+    PopupApp: './test/test.jsx',
   },
   output: {
-    path: './',
+    path: './test',
     filename: 'bundle.js',
   },
   devtool: '#inline-source-map',
