@@ -8,7 +8,8 @@ class TimeRow extends Component {
   static propTypes = {
     rowNumber: PropTypes.number,
     dayItems: PropTypes.arrayOf(PropTypes.shape({
-      backgroundColor: PropTypes.string
+      event: PropTypes.string,
+      color: PropTypes.arrayOf(PropTypes.number)
     })),
     handleDragStart: PropTypes.func,
     handleDragOver: PropTypes.func
@@ -27,6 +28,16 @@ class TimeRow extends Component {
     const { handleDragOver, rowNumber } = this.props;
     handleDragOver(dayNum, rowNumber);
   }
+  stripeShade(rowNum, color) {
+    if (rowNum % 2 === 0) {
+      return {
+        backgroundColor: `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`
+      };
+    }
+    return {
+      backgroundColor: `hsl(${color[0]}, ${color[1]}%, ${color[2] - 5}%)`
+    };
+  }
 
   render() {
     const { rowNumber, dayItems } = this.props;
@@ -44,7 +55,8 @@ class TimeRow extends Component {
         )}
         {dayItems.map((day, index) => (
           <QuarterCell
-            key={index} dayNum={index} rowNum={rowNumber} bgColor={day}
+            key={index} dayNum={index} rowNum={rowNumber}
+            bgColor={this.stripeShade(rowNumber, day.color)}
             dragStartHandler={this.dragStartHandler} dragOverHandler={this.dragOverHandler}
           />
         ))}

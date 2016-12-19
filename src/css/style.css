@@ -111,3 +111,6 @@ table tbody tr td.hour span {
     -moz-transform: translateY(16px) rotate(270deg);
   }
 }
+#EventSelector {
+  text-align: center;
+}
