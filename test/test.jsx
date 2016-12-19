@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import '~/css/style.css';
 import WeeklyScheduler from '~/WeeklyScheduler';
 
 const startingDefault = { event: 'default', color: [215, 12, 85] };

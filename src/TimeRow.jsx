@@ -1,5 +1,5 @@
 import React from 'react';
-import QuarterCell from '~/QuarterCell';
+import QuarterCell from './QuarterCell';
 
 const { PropTypes, Component } = React;
 

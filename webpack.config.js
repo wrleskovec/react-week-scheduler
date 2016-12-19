@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   entry: {
     PopupApp: './test/test.jsx',
@@ -23,9 +21,5 @@ module.exports = {
         loader: 'style-loader!css-loader'
       }
     ]
-  },
-  resolve: {
-    alias: { '~': path.resolve(__dirname, './src') },
-    extensions: ['', '.js', '.jsx']
   }
 };
