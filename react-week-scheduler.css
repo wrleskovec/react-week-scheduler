@@ -114,6 +114,7 @@
 #WeeklySchedulerTable {
   width: 100%;
   font-family: sans-serif;
+  line-height: normal;
 }
 #EventSelector {
   width: 100%;
@@ -125,11 +126,14 @@
   color: #d1d5db;
 }
 #EventSelector legend {
+  font-size: 1em;
   background: #626e7e;
   color: #d1d5db;
   padding: 0.25em 1em;
   border-radius: 1em;
   border: 1px solid #000;
+  margin-bottom: 0px;
+  width: auto;
 }
 #EventSelector div.legend-body {
   text-align: center;
