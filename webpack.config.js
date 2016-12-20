@@ -1,10 +1,8 @@
 module.exports = {
-  entry: {
-    PopupApp: './test/test.jsx',
-  },
+  entry: './test/test.jsx',
   output: {
-    path: './test',
-    filename: 'bundle.js',
+    path: __dirname,
+    filename: './test/bundle.js',
   },
   devtool: '#inline-source-map',
   module: {
@@ -21,5 +19,8 @@ module.exports = {
         loader: 'style-loader!css-loader'
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '']
   }
 };

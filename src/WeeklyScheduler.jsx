@@ -3,7 +3,6 @@ import _ from 'lodash';
 import DayHeader from './DayHeader';
 import TimeRow from './TimeRow';
 import EventSelector from './EventSelector';
-import './css/style.css';
 
 
 class WeeklyScheduler extends React.Component {
