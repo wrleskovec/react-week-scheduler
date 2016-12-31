@@ -18,9 +18,9 @@ exports.default = function () {
   return {
     visitor: {
       VariableDeclaration: function VariableDeclaration(path, file) {
-        var node = path.node;
-        var parent = path.parent;
-        var scope = path.scope;
+        var node = path.node,
+            parent = path.parent,
+            scope = path.scope;
 
         if (!isBlockScoped(node)) return;
         convertBlockScopedToVar(path, null, parent, scope, true);
@@ -48,9 +48,9 @@ exports.default = function () {
         }
       },
       Loop: function Loop(path, file) {
-        var node = path.node;
-        var parent = path.parent;
-        var scope = path.scope;
+        var node = path.node,
+            parent = path.parent,
+            scope = path.scope;
 
         t.ensureBlock(node);
         var blockScoping = new BlockScoping(path, path.get("body"), parent, scope, file);
@@ -58,8 +58,8 @@ exports.default = function () {
         if (replace) path.replaceWith(replace);
       },
       CatchClause: function CatchClause(path, file) {
-        var parent = path.parent;
-        var scope = path.scope;
+        var parent = path.parent,
+            scope = path.scope;
 
         var blockScoping = new BlockScoping(null, path.get("body"), parent, scope, file);
         blockScoping.run();
@@ -167,8 +167,8 @@ var letReferenceFunctionVisitor = _babelTraverse2.default.visitors.merge([{
 
 var hoistVarDeclarationsVisitor = {
   enter: function enter(path, self) {
-    var node = path.node;
-    var parent = path.parent;
+    var node = path.node,
+        parent = path.parent;
 
 
     if (path.isForStatement()) {
@@ -242,9 +242,9 @@ var loopVisitor = {
     path.skip();
   },
   "BreakStatement|ContinueStatement|ReturnStatement": function BreakStatementContinueStatementReturnStatement(path, state) {
-    var node = path.node;
-    var parent = path.parent;
-    var scope = path.scope;
+    var node = path.node,
+        parent = path.parent,
+        scope = path.scope;
 
     if (node[this.LOOP_IGNORE]) return;
 
@@ -329,14 +329,14 @@ var BlockScoping = function () {
       this.remap();
     }
 
-    this.updateScopeInfo();
+    this.updateScopeInfo(needsClosure);
 
     if (this.loopLabel && !t.isLabeledStatement(this.loopParent)) {
       return t.labeledStatement(this.loopLabel, this.loop);
     }
   };
 
-  BlockScoping.prototype.updateScopeInfo = function updateScopeInfo() {
+  BlockScoping.prototype.updateScopeInfo = function updateScopeInfo(wrappedInClosure) {
     var scope = this.scope;
     var parentScope = scope.getFunctionParent();
     var letRefs = this.letReferences;
@@ -347,7 +347,12 @@ var BlockScoping = function () {
       if (!binding) continue;
       if (binding.kind === "let" || binding.kind === "const") {
         binding.kind = "var";
-        scope.moveBindingTo(ref.name, parentScope);
+
+        if (wrappedInClosure) {
+          scope.removeBinding(ref.name);
+        } else {
+          scope.moveBindingTo(ref.name, parentScope);
+        }
       }
     }
   };
@@ -508,7 +513,8 @@ var BlockScoping = function () {
 
     for (var _i2 = 0; _i2 < declarators.length; _i2++) {
       var _declar = declarators[_i2];
-      var keys = t.getBindingIdentifiers(_declar);
+
+      var keys = t.getBindingIdentifiers(_declar, false, true);
       (0, _extend2.default)(this.letReferences, keys);
       this.hasLetReferences = true;
     }

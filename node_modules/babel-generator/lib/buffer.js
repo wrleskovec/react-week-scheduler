@@ -38,10 +38,27 @@ var Buffer = function () {
   Buffer.prototype.get = function get() {
     this._flush();
 
-    return {
+    var map = this._map;
+    var result = {
       code: (0, _trimEnd2.default)(this._buf.join("")),
-      map: this._map ? this._map.get() : null
+      map: null,
+      rawMappings: map && map.getRawMappings()
     };
+
+    if (map) {
+      Object.defineProperty(result, "map", {
+        configurable: true,
+        enumerable: true,
+        get: function get() {
+          return this.map = map.get();
+        },
+        set: function set(value) {
+          Object.defineProperty(this, "map", { value: value, writable: true });
+        }
+      });
+    }
+
+    return result;
   };
 
   Buffer.prototype.append = function append(str) {

@@ -13,9 +13,6 @@ var read = require("./utils/read")();
 var resolveRc = require("./resolve-rc.js");
 var pkg = require("./../package.json");
 
-/**
- * Error thrown by Babel formatted to conform to Webpack reporting.
- */
 function BabelLoaderError(name, message, codeFrame, hideStack, error) {
   Error.call(this);
   Error.captureStackTrace(this, BabelLoaderError);
@@ -75,11 +72,9 @@ module.exports = function (source, inputSourceMap) {
 
   var result = {};
 
-  // Handle filenames (#106)
   var webpackRemainingChain = loaderUtils.getRemainingRequest(this).split("!");
   var filename = webpackRemainingChain[webpackRemainingChain.length - 1];
 
-  // Handle options
   var globalOptions = this.options.babel || {};
   var loaderOptions = loaderUtils.parseQuery(this.query);
   var userOptions = assign({}, globalOptions, loaderOptions);

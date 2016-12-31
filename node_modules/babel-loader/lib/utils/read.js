@@ -1,14 +1,7 @@
 "use strict";
 
 var fs = require("fs");
-/**
- * Read the file and cache the result
- * return the result in cache
- *
- * @example
- * var read = require('./helpers/fsExists')({});
- * read('.babelrc'); // file contents...
- */
+
 module.exports = function (cache) {
   cache = cache || {};
 

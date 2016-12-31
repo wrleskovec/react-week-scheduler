@@ -49,6 +49,7 @@ module.exports = function generate_custom(it, $keyword) {
   } else if ($macro) {
     var $it = it.util.copy(it);
     $it.level++;
+    var $nextValid = 'valid' + $it.level;
     $it.schema = $ruleValidate.validate;
     $it.schemaPath = '';
     var $wasComposite = it.compositeRule;
@@ -104,7 +105,7 @@ module.exports = function generate_custom(it, $keyword) {
       out += ' (' + ($ruleValidate.validate) + ') ';
     }
   } else if ($macro) {
-    out += ' valid' + ($it.level) + ' ';
+    out += ' ' + ($nextValid) + ' ';
   } else {
     if ($asyncKeyword) {
       if ($rDef.errors === false) {
@@ -188,7 +189,7 @@ module.exports = function generate_custom(it, $keyword) {
       if (it.async) {
         out += ' throw new ValidationError(vErrors); ';
       } else {
-        out += ' validate.errors = vErrors; return false ';
+        out += ' validate.errors = vErrors; return false; ';
       }
     }
   } else {

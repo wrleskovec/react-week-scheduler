@@ -14,6 +14,7 @@ module.exports = function generate_anyOf(it, $keyword) {
   var $it = it.util.copy(it);
   var $closingBraces = '';
   $it.level++;
+  var $nextValid = 'valid' + $it.level;
   var $noEmptySchema = $schema.every(function($sch) {
     return it.util.schemaHasRules($sch, it.RULES.all);
   });
@@ -33,7 +34,7 @@ module.exports = function generate_anyOf(it, $keyword) {
         $it.errSchemaPath = $errSchemaPath + '/' + $i;
         out += '  ' + (it.validate($it)) + ' ';
         $it.baseId = $currentBaseId;
-        out += ' ' + ($valid) + ' = ' + ($valid) + ' || valid' + ($it.level) + '; if (!' + ($valid) + ') { ';
+        out += ' ' + ($valid) + ' = ' + ($valid) + ' || ' + ($nextValid) + '; if (!' + ($valid) + ') { ';
         $closingBraces += '}';
       }
     }

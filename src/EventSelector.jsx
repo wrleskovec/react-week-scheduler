@@ -14,7 +14,7 @@ export default function EventSelector({ events, selectedEvent, selectEvent }) {
             <div className="radio-item">
               <input
                 type="radio" name="eventSelect" value={event.event}
-                checked={selectedEvent.event === event.event}
+                checked={selectedEvent.event === event.event} key={event.event}
                 onClick={onRadioClick(event)}
               />
               <label className="radio-label" htmlFor={event.event}>{event.event}</label>

@@ -18,15 +18,16 @@ module.exports = function generate_enum(it, $keyword) {
   } else {
     $schemaValue = $schema;
   }
-  var $i = 'i' + $lvl;
+  var $i = 'i' + $lvl,
+    $vSchema = 'schema' + $lvl;
   if (!$isData) {
-    out += ' var schema' + ($lvl) + ' = validate.schema' + ($schemaPath) + ';';
+    out += ' var ' + ($vSchema) + ' = validate.schema' + ($schemaPath) + ';';
   }
   out += 'var ' + ($valid) + ';';
   if ($isData) {
     out += ' if (schema' + ($lvl) + ' === undefined) ' + ($valid) + ' = true; else if (!Array.isArray(schema' + ($lvl) + ')) ' + ($valid) + ' = false; else {';
   }
-  out += '' + ($valid) + ' = false;for (var ' + ($i) + '=0; ' + ($i) + '<schema' + ($lvl) + '.length; ' + ($i) + '++) if (equal(' + ($data) + ', schema' + ($lvl) + '[' + ($i) + '])) { ' + ($valid) + ' = true; break; }';
+  out += '' + ($valid) + ' = false;for (var ' + ($i) + '=0; ' + ($i) + '<' + ($vSchema) + '.length; ' + ($i) + '++) if (equal(' + ($data) + ', ' + ($vSchema) + '[' + ($i) + '])) { ' + ($valid) + ' = true; break; }';
   if ($isData) {
     out += '  }  ';
   }

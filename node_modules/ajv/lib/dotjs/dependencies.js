@@ -13,6 +13,7 @@ module.exports = function generate_dependencies(it, $keyword) {
   var $it = it.util.copy(it);
   var $closingBraces = '';
   $it.level++;
+  var $nextValid = 'valid' + $it.level;
   var $schemaDeps = {},
     $propertyDeps = {};
   for ($property in $schema) {
@@ -126,7 +127,7 @@ module.exports = function generate_dependencies(it, $keyword) {
   for (var $property in $schemaDeps) {
     var $sch = $schemaDeps[$property];
     if (it.util.schemaHasRules($sch, it.RULES.all)) {
-      out += ' valid' + ($it.level) + ' = true; if (' + ($data) + '[\'' + ($property) + '\'] !== undefined) { ';
+      out += ' ' + ($nextValid) + ' = true; if (' + ($data) + '[\'' + ($property) + '\'] !== undefined) { ';
       $it.schema = $sch;
       $it.schemaPath = $schemaPath + it.util.getProperty($property);
       $it.errSchemaPath = $errSchemaPath + '/' + it.util.escapeFragment($property);
@@ -134,7 +135,7 @@ module.exports = function generate_dependencies(it, $keyword) {
       $it.baseId = $currentBaseId;
       out += ' }  ';
       if ($breakOnError) {
-        out += ' if (valid' + ($it.level) + ') { ';
+        out += ' if (' + ($nextValid) + ') { ';
         $closingBraces += '}';
       }
     }

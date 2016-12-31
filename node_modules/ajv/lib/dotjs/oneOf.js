@@ -14,6 +14,7 @@ module.exports = function generate_oneOf(it, $keyword) {
   var $it = it.util.copy(it);
   var $closingBraces = '';
   $it.level++;
+  var $nextValid = 'valid' + $it.level;
   out += 'var ' + ($errs) + ' = errors;var prevValid' + ($lvl) + ' = false;var ' + ($valid) + ' = false;';
   var $currentBaseId = $it.baseId;
   var $wasComposite = it.compositeRule;
@@ -31,13 +32,13 @@ module.exports = function generate_oneOf(it, $keyword) {
         out += '  ' + (it.validate($it)) + ' ';
         $it.baseId = $currentBaseId;
       } else {
-        out += ' var valid' + ($it.level) + ' = true; ';
+        out += ' var ' + ($nextValid) + ' = true; ';
       }
       if ($i) {
-        out += ' if (valid' + ($it.level) + ' && prevValid' + ($lvl) + ') ' + ($valid) + ' = false; else { ';
+        out += ' if (' + ($nextValid) + ' && prevValid' + ($lvl) + ') ' + ($valid) + ' = false; else { ';
         $closingBraces += '}';
       }
-      out += ' if (valid' + ($it.level) + ') ' + ($valid) + ' = prevValid' + ($lvl) + ' = true;';
+      out += ' if (' + ($nextValid) + ') ' + ($valid) + ' = prevValid' + ($lvl) + ' = true;';
     }
   }
   it.compositeRule = $it.compositeRule = $wasComposite;

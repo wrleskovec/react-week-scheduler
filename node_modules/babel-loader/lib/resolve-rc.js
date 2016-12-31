@@ -1,13 +1,5 @@
 "use strict";
 
-/**
- * The purpose of this module, is to find the project's .babelrc and
- * use its contents to bust the babel-loader's internal cache whenever an option
- * changes.
- *
- * @see https://github.com/babel/babel-loader/issues/62
- * @see http://git.io/vLEvu
- */
 var path = require("path");
 var exists = require("./utils/exists")({});
 var read = require("./utils/read")({});
@@ -21,7 +13,6 @@ var find = function find(start, rel) {
 
   var up = path.dirname(start);
   if (up !== start) {
-    // Reached root
     return find(up, rel);
   }
 };
