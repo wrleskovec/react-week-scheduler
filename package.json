@@ -1,6 +1,6 @@
 {
   "name": "react-week-scheduler",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "simple graphical weekly scheduler component with drag/expand functionality",
   "main": "lib/WeeklyScheduler.js",
   "style": "react-week-scheduler.css",
@@ -46,14 +46,15 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "file-loader": "^0.9.0",
-    "react-dom": "^15.4.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
   "peerDependencies": {
     "lodash": "^4.17.2",
-    "react": "^15.4.1"
+    "react": "^15.4.2"
   },
   "dependencies": {}
 }
