@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import DayHeader from './DayHeader';
 import TimeRow from './TimeRow';
 import EventSelector from './EventSelector';
@@ -24,21 +23,49 @@ class WeeklyScheduler extends React.Component {
     this.state = {
       days,
       startingCell: null,
-      currentEvent: selectedEvent || defaultEvent
+      currentEvent: selectedEvent || defaultEvent,
+      oldDays: days
     };
-    this.handleDragStart = this.handleDragStart.bind(this);
-    this.handleDragOver = this.handleDragOver.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
     this.handleSelectEvent = this.handleSelectEvent.bind(this);
   }
 
-  // onMouseDown(e) {
-  //   e.preventDefault();
-  // }
-
-  componentWillMount() {
-    this.handleDragOver = _.debounce(this.handleDragOver, 20);
+  componentWillReceiveProps(newProps) {
+    const { currentSchedule } = this.props;
+    const { days } = this.state;
+    this.setState({
+      days: newProps.currentSchedule || days
+    });
   }
-
+  onMouseDown(e) {
+    e.preventDefault();
+    const rowNum = e.target.getAttribute('data-row');
+    const dayNum = e.target.getAttribute('data-day');
+    console.log(`row: ${rowNum}, day: ${dayNum}`);
+    this.setState({
+      startingCell: {
+        day: parseInt(dayNum, 10),
+        time: parseInt(rowNum, 10)
+      }
+    });
+    this.weekTable.addEventListener('mouseover', this.onMouseOver);
+    window.addEventListener('mouseup', this.onMouseUp);
+  }
+  onMouseUp() {
+    const { days } = this.state;
+    console.log('MouseUp');
+    this.weekTable.removeEventListener('mouseover', this.onMouseOver);
+    window.removeEventListener('mouseup', this.onMouseUp);
+    this.setState({ oldDays: days });
+  }
+  onMouseOver(e) {
+    const rowNum = e.target.getAttribute('data-row');
+    const dayNum = e.target.getAttribute('data-day');
+    console.log(`(MouseMove) row: ${rowNum}, day: ${dayNum}`);
+    this.handleDragOver(parseInt(dayNum, 10), parseInt(rowNum, 10));
+  }
   setupTimeRows() {
     const { days } = this.state;
     const rows = [];
@@ -51,15 +78,9 @@ class WeeklyScheduler extends React.Component {
     }
     return rows.map((tRow, index) => (
       <TimeRow
-        key={index} rowNumber={index} dayItems={tRow} handleDragStart={this.handleDragStart}
-        handleDragOver={this.handleDragOver}
+        key={index} rowNumber={index} dayItems={tRow}
       />
     ));
-  }
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      days: newProps.currentSchedule
-    });
   }
   handleSelectEvent(eventSelected) {
     const { currentEvent } = this.state;
@@ -67,23 +88,15 @@ class WeeklyScheduler extends React.Component {
       this.setState({ currentEvent: eventSelected });
     }
   }
-  handleDragStart(dayNum, rowNum) {
-    // const hour = (rowNum === 0) ? 0 : Math.floor(rowNum / 4);
-    // const minutes = (rowNum % 4) * 15;
-    this.setState({ startingCell: {
-      day: dayNum,
-      time: rowNum
-    } });
-  }
   handleDragOver(dayNum, rowNum) {
-    const { startingCell, days, currentEvent } = this.state;
+    const { startingCell, currentEvent, oldDays } = this.state;
 
     const dayDiff = dayNum - startingCell.day;
     const timeDiff = rowNum - startingCell.time;
     const newDays = [];
 
     for (let j = 0; j < 7; j += 1) {
-      newDays.push(days[j].slice());
+      newDays.push(oldDays[j].slice());
     }
     if (dayDiff !== 0) {
       const dayStart = (startingCell.day < dayNum) ? startingCell.day : dayNum;
@@ -117,9 +130,12 @@ class WeeklyScheduler extends React.Component {
         <EventSelector
           events={events} selectedEvent={currentEvent} selectEvent={this.handleSelectEvent}
         />
-        <table onMouseDown={this.onMouseDown}>
+        <table>
           <DayHeader />
-          <tbody>
+          <tbody
+            className="week-table" onMouseDown={this.onMouseDown}
+            ref={(tbody) => { this.weekTable = tbody; }}
+          >
             {this.setupTimeRows()}
           </tbody>
         </table>
