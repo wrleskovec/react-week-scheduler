@@ -79,11 +79,6 @@
   #WeeklySchedulerTable table thead tr th .short {
     display: block;
   }
-  #WeeklySchedulerTable table tbody tr td.hour span {
-    transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-  }
 }
 @media (max-width: 27em) {
   #WeeklySchedulerTable table thead tr th {
@@ -104,11 +99,6 @@
   }
   #WeeklySchedulerTable table tbody tr td.hour {
     font-size: 1.7em;
-  }
-  #WeeklySchedulerTable table tbody tr td.hour span {
-    transform: translateY(16px) rotate(270deg);
-    -webkit-transform: translateY(16px) rotate(270deg);
-    -moz-transform: translateY(16px) rotate(270deg);
   }
 }
 #WeeklySchedulerTable {
