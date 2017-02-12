@@ -1,14 +1,15 @@
 import React from 'react';
+import Color from 'color';
 import QuarterCell from './QuarterCell';
 
 function stripeShade(rowNum, color) {
   if (rowNum % 2 === 0) {
     return {
-      backgroundColor: `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`
+      backgroundColor: color
     };
   }
   return {
-    backgroundColor: `hsl(${color[0]}, ${color[1]}%, ${color[2] - 5}%)`
+    backgroundColor: Color(color).lighten(0.09)
   };
 }
 const TimeRow = ({ rowNumber, dayItems }) => {
@@ -27,7 +28,7 @@ const TimeRow = ({ rowNumber, dayItems }) => {
       {dayItems.map((day, index) => (
         <QuarterCell
           key={index} dayNum={index} rowNum={rowNumber}
-          bgColor={stripeShade(rowNumber, day.color)}
+          bgColor={stripeShade(rowNumber, day)}
         />
       ))}
     </tr>

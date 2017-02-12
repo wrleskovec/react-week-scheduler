@@ -55,5 +55,8 @@
   "peerDependencies": {
     "react": "^15.4.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "color": "^1.0.3",
+    "lodash": "^4.17.4"
+  }
 }

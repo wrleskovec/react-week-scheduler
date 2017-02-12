@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 import WeeklyScheduler from '../src/WeeklyScheduler';
 import '../react-week-scheduler.css';
 
-const startingDefault = { event: 'default', color: [215, 12, 85] };
-const blockingEvent = { event: 'block', color: [360, 36, 55] };
-const limitingEvent = { event: 'limit', color: [50, 64, 55] };
+const startingDefault = { event: 'default', color: '#d4d8dd' };
+const blockingEvent = { event: 'block', color: '#b66363' };
+const limitingEvent = { event: 'limit', color: '#d6bd43' };
 const eventList = [startingDefault, blockingEvent, limitingEvent];
 
 render(

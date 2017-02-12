@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'lodash/debounce';
 import DayHeader from './DayHeader';
 import TimeRow from './TimeRow';
 import EventSelector from './EventSelector';
@@ -15,7 +16,7 @@ class WeeklyScheduler extends React.Component {
       for (let i = 0; i < 7; i += 1) {
         const day = [];
         for (let j = 0; j < 96; j += 1) {
-          day.push({ color: defaultEvent.color, event: defaultEvent.event });
+          day.push(defaultEvent.color);
         }
         days.push(day);
       }
@@ -29,7 +30,7 @@ class WeeklyScheduler extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
-    this.handleSelectEvent = this.handleSelectEvent.bind(this);
+    this.handleSelectEvent = debounce(this.handleSelectEvent.bind(this), 20);
   }
 
   componentWillReceiveProps(newProps) {
@@ -106,17 +107,17 @@ class WeeklyScheduler extends React.Component {
       for (let j = dayStart; j <= dayEnd; j += 1) {
         if (timeDiff !== 0) {
           for (let i = timeStart; i <= timeEnd; i += 1) {
-            newDays[j][i] = currentEvent;
+            newDays[j][i] = currentEvent.color;
           }
         } else {
-          newDays[j][startingCell.time] = currentEvent;
+          newDays[j][startingCell.time] = currentEvent.color;
         }
       }
     } else if (timeDiff !== 0) {
       const timeStart = (startingCell.time < rowNum) ? startingCell.time : rowNum;
       const timeEnd = (startingCell.time < rowNum) ? rowNum : startingCell.time;
       for (let j = timeStart; j <= timeEnd; j += 1) {
-        newDays[startingCell.day][j] = currentEvent;
+        newDays[startingCell.day][j] = currentEvent.color;
       }
     }
     this.setState({ days: newDays });
