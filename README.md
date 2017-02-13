@@ -33,13 +33,14 @@ Event objects follow the format: { event: 'myEventName', color '#999'}. Any form
 
 `selectedEvent` - default event selected for filling scheduler
 
-`events` - list of events to select from to fill scheduler
+`events` - array of events to select from to fill scheduler
 
 `currentSchedule` - 7 x 96 timeblock matrix corresponding to 7 weekdays and 96 15-minute blocks per day. Stores Event objects.
 
 ### Accessing Scheduler state
 
 To access and return current Scheduler state just use a `ref` callback:
+
   `ref={(scheduler) => { this.schedule = scheduler.state.days}}`
 
 ##Demo
