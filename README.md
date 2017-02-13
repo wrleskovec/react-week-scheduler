@@ -44,3 +44,5 @@ To access and return current Scheduler state just use a `ref` callback:
   `ref={(scheduler) => { this.schedule = scheduler.state.days}}`
 
 ##Demo
+
+  (https://wrleskovec.github.io/react-week-scheduler/)
