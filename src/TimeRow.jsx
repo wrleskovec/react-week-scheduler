@@ -28,7 +28,7 @@ const TimeRow = ({ rowNumber, dayItems }) => {
       {dayItems.map((day, index) => (
         <QuarterCell
           key={index} dayNum={index} rowNum={rowNumber}
-          bgColor={stripeShade(rowNumber, day)}
+          bgColor={stripeShade(rowNumber, day.color)}
         />
       ))}
     </tr>
