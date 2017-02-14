@@ -44,7 +44,6 @@ class WeeklyScheduler extends React.Component {
     e.preventDefault();
     const rowNum = e.target.getAttribute('data-row');
     const dayNum = e.target.getAttribute('data-day');
-    console.log(`row: ${rowNum}, day: ${dayNum}`);
     this.setState({
       startingCell: {
         day: parseInt(dayNum, 10),
@@ -56,7 +55,6 @@ class WeeklyScheduler extends React.Component {
   }
   onMouseUp() {
     const { days } = this.state;
-    console.log('MouseUp');
     this.weekTable.removeEventListener('mouseover', this.onMouseOver);
     window.removeEventListener('mouseup', this.onMouseUp);
     this.setState({ oldDays: days });
@@ -64,7 +62,6 @@ class WeeklyScheduler extends React.Component {
   onMouseOver(e) {
     const rowNum = e.target.getAttribute('data-row');
     const dayNum = e.target.getAttribute('data-day');
-    console.log(`(MouseMove) row: ${rowNum}, day: ${dayNum}`);
     this.handleDragOver(parseInt(dayNum, 10), parseInt(rowNum, 10));
   }
   setupTimeRows() {
@@ -123,7 +120,6 @@ class WeeklyScheduler extends React.Component {
     this.setState({ days: newDays });
   }
   render() {
-    console.log('scheduler renders...');
     const { events, defaultEvent } = this.props;
     const { currentEvent } = this.state;
     return (

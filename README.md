@@ -22,7 +22,7 @@ return (
     <WeeklyScheduler
       defaultEvent={startingDefault} selectedEvent={blockingEvent} events={eventList}
       currentSchedule={currentSchedule}
-      ref={(scheduler) => { this.schedule = scheduler.state.days; }}
+      ref={(scheduler) => { this.scheduler = scheduler; }}
     />
   </div>
 );
@@ -41,7 +41,9 @@ Event objects follow the format: { event: 'myEventName', color '#999'}. Any form
 
 To access and return current Scheduler state just use a `ref` callback:
 
-  `ref={(scheduler) => { this.schedule = scheduler.state.days}}`
+  `ref={(scheduler) => { this.scheduler = scheduler }}`
+
+Current timeblock matrix will be stored in `this.scheduler.state.days` corresponding to above ref
 
 ##Demo
 
