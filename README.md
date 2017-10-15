@@ -47,4 +47,4 @@ Current timeblock matrix will be stored in `this.scheduler.state.days` correspon
 
 ##Demo
 
-  (https://wrleskovec.github.io/react-week-scheduler/)
+[https://wrleskovec.github.io/react-week-scheduler/](https://wrleskovec.github.io/react-week-scheduler/)
