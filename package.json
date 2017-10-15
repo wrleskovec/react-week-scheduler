@@ -1,6 +1,6 @@
 {
   "name": "react-week-scheduler",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "simple graphical weekly scheduler component with drag/expand functionality",
   "main": "lib/WeeklyScheduler.js",
   "style": "react-week-scheduler.css",
