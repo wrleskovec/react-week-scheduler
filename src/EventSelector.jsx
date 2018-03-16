@@ -10,12 +10,17 @@ export default function EventSelector({ events, selectedEvent, selectEvent }) {
       <div className="legend-body">
         {events.map(event => (
           <div className="radio-item" key={event.event}>
-            <input
-              type="radio" name="eventSelect" value={event.event}
-              defaultChecked={selectedEvent.event === event.event}
-              onClick={onRadioClick(event)}
-            />
-            <label className="radio-label" htmlFor={event.event}>{event.event}</label>
+            <label className="radio-label" htmlFor={`eventSelect${event.event}`}>
+              <input
+                type="radio"
+                name="eventSelect"
+                id={`eventSelect${event.event}`}
+                value={event.event}
+                defaultChecked={selectedEvent.event === event.event}
+                onClick={onRadioClick(event)}
+              />
+              {event.event}
+            </label>
             <div className="legend-color" style={{ backgroundColor: event.color }} />
           </div>
         ))}
