@@ -15,11 +15,11 @@ function DayHeader() {
         </th>
         <th>
           <span className="long">Wednesday</span>
-          <span className="short">We</span>
+          <span className="short">Wed</span>
         </th>
         <th>
           <span className="long">Thursday</span>
-          <span className="short">Thur</span>
+          <span className="short">Thu</span>
         </th>
         <th>
           <span className="long">Friday</span>
